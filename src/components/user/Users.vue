@@ -81,6 +81,7 @@
                 type="warning"
                 size="mini"
                 icon="el-icon-setting"
+                @click="showRoleDialog(scope.row)"
               ></el-button>
             </el-tooltip>
           </template>
@@ -155,6 +156,36 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDioalogVisible = false">取 消</el-button>
         <el-button type="primary" @click="editUser(editForm.id)"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
+
+    <el-dialog
+      title="分配角色"
+      :visible.sync="roleDialogVisible"
+      width="30%"
+      @close="roleDialogClosed"
+    >
+      <div>
+        <p>当前用户：{{ userInfo.username }}</p>
+        <p>当前角色：{{ userInfo.role_name }}</p>
+        <p>
+          新角色：
+          <el-select placeholder="请选择..." v-model="selectedRoleId">
+            <el-option
+              v-for="item in roleList"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="roleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="setRole(userInfo.id)"
           >确 定</el-button
         >
       </span>
@@ -238,7 +269,11 @@ export default {
             trigger: 'blur'
           }
         ]
-      }
+      },
+      roleDialogVisible: false,
+      userInfo: {},
+      roleList: [],
+      selectedRoleId: ''
     }
   },
   created() {
@@ -320,6 +355,27 @@ export default {
         .catch(() => {
           this.$msg.info('已取消删除操作！')
         })
+    },
+    async showRoleDialog(role) {
+      this.userInfo = role
+      const { data: res } = await this.$http.get('roles')
+      if (res.meta.status !== 200) return this.$msg.error('获取角色列表失败！')
+      this.roleList = res.data
+      this.roleDialogVisible = true
+    },
+    async setRole(id) {
+      const { data: res } = await this.$http.put(`users/${id}/role`, {
+        rid: this.selectedRoleId
+      })
+      console.log(res)
+      if (res.meta.status !== 200) return this.$msg.error(res.meta.msg)
+      this.getUserList()
+      this.$msg.success('分配角色成功！')
+      this.roleDialogVisible = false
+    },
+    roleDialogClosed() {
+      this.userInfo = {}
+      this.selectedRoleId = ''
     }
   }
 }
