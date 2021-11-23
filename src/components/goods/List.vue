@@ -138,7 +138,7 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 .add_goods {
   display: flex;
   justify-content: flex-end;
