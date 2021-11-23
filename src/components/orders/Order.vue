@@ -204,4 +204,7 @@ export default {
 .el-icon-error {
   color: red;
 }
+.el-cascader {
+  width: 100%;
+}
 </style>
