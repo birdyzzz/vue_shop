@@ -55,7 +55,7 @@ export default {
 
     const { data: res } = await this.$http.get('reports/type/1')
     if (res.meta.status !== 200) {
-      return this.$msg.error('获取图标信息失败！')
+      return this.$message.error('获取图标信息失败！')
     }
     console.log(res)
     const result = _.merge(this.options, res.data)

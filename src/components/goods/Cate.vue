@@ -180,7 +180,7 @@ export default {
         params: this.queryInfo
       })
       if (res.meta.status !== 200) {
-        return this.$msg.error('获取商品分类列表失败！')
+        return this.$message.error('获取商品分类列表失败！')
       }
       //   console.log(res)
       this.cateList = res.data.result
@@ -202,7 +202,7 @@ export default {
       const { data: res } = await this.$http.get('/categories', {
         params: { type: 2 }
       })
-      if (res.meta.status !== 200) return this.$msg.error('获取父级分类失败！')
+      if (res.meta.status !== 200) return this.$message.error('获取父级分类失败！')
       console.log(res)
       this.parentCate = res.data
     },
@@ -230,8 +230,8 @@ export default {
           '/categories',
           this.addCateForm
         )
-        if (res.meta.status !== 201) return this.$msg.error('添加分类失败！')
-        this.$msg.success('添加分类成功！')
+        if (res.meta.status !== 201) return this.$message.error('添加分类失败！')
+        this.$message.success('添加分类成功！')
         this.getCateList()
         this.addCateDialogVisible = false
       })
@@ -254,10 +254,10 @@ export default {
         )
         console.log(res)
         if (res.meta.status !== 200) {
-          return this.$msg.error('编辑分类名称失败！')
+          return this.$message.error('编辑分类名称失败！')
         }
         this.getCateList()
-        this.$msg.success('编辑分类名称成功！')
+        this.$message.success('编辑分类名称成功！')
         this.editCateDialogVisible = false
       })
     },
@@ -269,12 +269,12 @@ export default {
       })
         .then(async () => {
           const { data: res } = await this.$http.delete(`categories/${id}`)
-          if (res.meta.status !== 200) return this.$msg.error('删除分类失败')
-          this.$msg.success('删除分类成功！')
+          if (res.meta.status !== 200) return this.$message.error('删除分类失败')
+          this.$message.success('删除分类成功！')
           this.getCateList()
         })
         .catch(() => {
-          this.$msg.info('已取消删除！')
+          this.$message.info('已取消删除！')
         })
     }
   }

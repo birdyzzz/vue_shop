@@ -172,20 +172,20 @@ export default {
     async getCateList() {
       const { data: res } = await this.$http.get('/categories')
       if (res.meta.status !== 200) {
-        return this.$msg.error('获取商品分类列表失败！')
+        return this.$message.error('获取商品分类列表失败！')
       }
       this.cateList = res.data
     },
     handleChange() {
       if (!this.cateId) {
         this.addForm.goods_cat = []
-        this.$msg.info('只允许选择第三级分类！')
+        this.$message.info('只允许选择第三级分类！')
       }
       // console.log(this.addForm.goods_cat)
     },
     beforeTabLeave(n, o) {
       if (o === '0' && this.addForm.goods_cat.length !== 3) {
-        this.$msg.warning('请先选择第三级分类！')
+        this.$message.warning('请先选择第三级分类！')
         return false
       }
     },
@@ -196,7 +196,7 @@ export default {
           { params: { sel: 'many' } }
         )
         if (res.meta.status !== 200) {
-          return this.$msg.error('获取动态参数列表失败！')
+          return this.$message.error('获取动态参数列表失败！')
         }
         this.manyTableData = res.data
         res.data.forEach((item) => {
@@ -210,7 +210,7 @@ export default {
           { params: { sel: 'only' } }
         )
         if (res.meta.status !== 200) {
-          return this.$msg.error('获取静态属性列表失败！')
+          return this.$message.error('获取静态属性列表失败！')
         }
         this.onlyTableData = res.data
       }
@@ -249,9 +249,9 @@ export default {
         console.log(form)
         const { data: res } = await this.$http.post('goods', form)
         if (res.meta.status !== 201) {
-          return this.$msg.error('添加商品失败！！！')
+          return this.$message.error('添加商品失败！！！')
         }
-        this.$msg.success('添加商品成功')
+        this.$message.success('添加商品成功')
         this.$router.push('/goods')
       })
     }

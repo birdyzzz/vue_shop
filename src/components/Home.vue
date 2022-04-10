@@ -3,19 +3,14 @@
     <el-header>
       <div>
         <img src="../assets/apple.png" class="logo" />
-        <span>随心购-后台管理系统</span>
+        <span>乐购商城-后台管理系统</span>
       </div>
       <el-button type="info" @click="logout">退出登录</el-button>
     </el-header>
     <el-container>
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <div class="collapse" @click="collapse">
-          <i
-            :class="
-              isCollapse ? 'el-icon-d-arrow-right' : 'el-icon-d-arrow-left'
-            "
-            >{{ isCollapse ? '展开' : '收起' }}</i
-          >
+          <i :class="isCollapse ? 'el-icon-d-arrow-right' : 'el-icon-d-arrow-left'">{{ isCollapse ? '展开' : '收起' }}</i>
         </div>
         <el-menu
           background-color="#323743"
@@ -27,21 +22,12 @@
           router
           :default-active="activePath"
         >
-          <el-submenu
-            :index="item.id.toString()"
-            v-for="item in menuList"
-            :key="item.id"
-          >
+          <el-submenu :index="item.id.toString()" v-for="item in menuList" :key="item.id">
             <template slot="title">
               <i :class="menuObj[item.id]"></i>
               <span>{{ item.authName }}</span>
             </template>
-            <el-menu-item
-              v-for="subItem in item.children"
-              :index="'/' + subItem.path"
-              :key="subItem.id"
-              @click="saveNavState('/' + subItem.path)"
-            >
+            <el-menu-item v-for="subItem in item.children" :index="'/' + subItem.path" :key="subItem.id" @click="saveNavState('/' + subItem.path)">
               <template slot="title">
                 <i class="el-icon-s-operation"></i>
                 <span>{{ subItem.authName }}</span>
@@ -84,7 +70,7 @@ export default {
     },
     async getMenuList() {
       const { data: res } = await this.$http.get('/menus')
-      if (res.meta.status !== 200) return this.$msg.erro('获取菜单列表失败！')
+      if (res.meta.status !== 200) return this.$message.erro('获取菜单列表失败！')
       this.menuList = res.data
     },
     collapse() {

@@ -100,7 +100,7 @@ export default {
         params: this.queryInfo
       })
       if (res.meta.status !== 200) {
-        return this.$msg.error('获取商品列表失败！')
+        return this.$message.error('获取商品列表失败！')
       }
       this.goodsList = res.data.goods
       this.total = res.data.total
@@ -122,13 +122,13 @@ export default {
         .then(async () => {
           const { data: res } = await this.$http.delete('goods/' + id)
           if (res.meta.status !== 200) {
-            return this.$msg.error('删除该商品失败！')
+            return this.$message.error('删除该商品失败！')
           }
-          this.$msg.success('删除该商品成功！')
+          this.$message.success('删除该商品成功！')
           this.getGoodsList()
         })
         .catch(() => {
-          this.$msg.info('已取消删除！')
+          this.$message.info('已取消删除！')
         })
     },
     goAddPage() {

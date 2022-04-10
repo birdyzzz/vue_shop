@@ -202,7 +202,7 @@ export default {
   methods: {
     async getRolesList() {
       const { data: res } = await this.$http.get('/roles')
-      if (res.meta.status !== 200) return this.$msg.error('获取角色列表失败！')
+      if (res.meta.status !== 200) return this.$message.error('获取角色列表失败！')
       this.rolesList = res.data
     },
     removeRight(role, rightId) {
@@ -216,13 +216,13 @@ export default {
             `roles/${role.id}/rights/${rightId}`
           )
           if (res.meta.status !== 200) {
-            return this.$msg.error(res.meta.msg)
+            return this.$message.error(res.meta.msg)
           }
           role.children = res.data
-          this.$msg.success('删除该权限成功！')
+          this.$message.success('删除该权限成功！')
         })
         .catch(() => {
-          this.$msg.info('已取消！')
+          this.$message.info('已取消！')
         })
     },
     showAddDialog() {
@@ -232,9 +232,9 @@ export default {
       this.addRoledialogVisible = false
       const { data: res } = await this.$http.post('/roles', this.roleForm)
       if (res.meta.status !== 201) {
-        return this.$msg.error(res.meta.msg)
+        return this.$message.error(res.meta.msg)
       }
-      this.$msg.success(res.meta.msg)
+      this.$message.success(res.meta.msg)
       this.getRolesList()
     },
     handleAddDialogClosed() {
@@ -245,7 +245,7 @@ export default {
     },
     async showEditDialog(id) {
       const { data: res } = await this.$http.get('roles/' + id)
-      if (res.meta.status !== 200) this.$msg.error(res.meta.msg)
+      if (res.meta.status !== 200) this.$message.error(res.meta.msg)
       this.editForm = res.data
       this.editRoleDialogVisible = true
     },
@@ -254,9 +254,9 @@ export default {
         if (!valid) return
         const { data: res } = await this.$http.put(`roles/${id}`, this.editForm)
         if (res.meta.status !== 200) {
-          this.$msg.error(res.meta.msg)
+          this.$message.error(res.meta.msg)
         }
-        this.$msg.success('修改角色信息成功！')
+        this.$message.success('修改角色信息成功！')
         this.getRolesList()
         this.editRoleDialogVisible = false
       })
@@ -269,8 +269,8 @@ export default {
       })
         .then(async () => {
           const { data: res } = await this.$http.delete('roles/' + id)
-          if (res.meta.status !== 200) return this.$msg.error(res.meta.msg)
-          this.$msg.success('删除角色成功！')
+          if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+          this.$message.success('删除角色成功！')
           this.getRolesList()
         })
         .catch((err) => err)
@@ -280,7 +280,7 @@ export default {
       this.roleId = role.id
       const { data: res } = await this.$http.get('rights/tree')
       console.log(res)
-      if (res.meta.status !== 200) return this.$msg.erro(this.meta.msg)
+      if (res.meta.status !== 200) return this.$message.erro(this.meta.msg)
       this.rights = res.data
       this.getCheckedKeysId(role, this.defKeys)
       this.allotRightsDialogVisible = true
@@ -307,8 +307,8 @@ export default {
         { rids: keysStr }
       )
       console.log(res)
-      if (res.meta.status !== 200) return this.$msg.error(res.meta.msg)
-      this.$msg.success('分配权限成功！')
+      if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+      this.$message.success('分配权限成功！')
       this.getRolesList()
       this.allotRightsDialogVisible = false
     }

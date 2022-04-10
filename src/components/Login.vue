@@ -4,25 +4,12 @@
       <div class="avatar">
         <img src="../assets/logo.png" alt="" />
       </div>
-      <el-form
-        ref="loginFormRef"
-        :model="loginForm"
-        :rules="loginRules"
-        label-width="0"
-        class="form"
-      >
+      <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" label-width="0" class="form">
         <el-form-item prop="username">
-          <el-input
-            v-model="loginForm.username"
-            prefix-icon="el-icon-user"
-          ></el-input>
+          <el-input v-model="loginForm.username" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input
-            v-model="loginForm.password"
-            type="password"
-            prefix-icon="el-icon-lock"
-          ></el-input>
+          <el-input v-model="loginForm.password" type="password" prefix-icon="el-icon-lock"></el-input>
         </el-form-item>
         <el-form-item class="btns">
           <el-button type="primary" @click="login">登录</el-button>
@@ -82,7 +69,7 @@ export default {
       })
     },
     loginSuccess() {
-      this.$msg({
+      this.$message({
         message: '登录成功！',
         center: true,
         showClose: true,
@@ -90,7 +77,7 @@ export default {
       })
     },
     loginError() {
-      this.$msg({
+      this.$message({
         message: this.loginStatusMsg,
         center: true,
         showClose: true,
